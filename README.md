@@ -8,6 +8,50 @@ This script needs Hammerspoon in order to work.
 
 ![example](https://github.com/miromannino/miro-windows-manager/raw/imgs/example.gif)
 
+## Fork Info [cmaahs](https://github.com/cmaahs/miro-windows-manager/)
+
+I added a "middle" feature, `hyper` + `m` that I wasn't sure would be accepted into the main repository.  While I was at it, I archived the previous version (v1.1) as a branch, and pulled the original author's v1.2 branch into the master branch to make things less confusing for installation.
+
+### How to install from the fork
+
+This will create a ~/tmp temp file in your home directory and clone the repository into it, then move the Spoon to the ~/.hammerspoon/Spoons install directory.  Then add the base loading lines into your ~/.hammerspoon/init.lua file.  Once complete you can clean up the ~/tmp/miro-windows-manager directory as you see fit.
+
+```bash
+mkdir ~/tmp
+
+cd ~/tmp && git clone https://github.com/cmaahs/miro-windows-manager.git
+cd ~/tmp/miro-windows-manager
+mv MiroWindowsManager.spoon ~/.hammerspoon/Spoons
+
+
+if grep -Fxq 'local hyper = {"ctrl", "alt", "cmd"}' ~/.hammerspoon/init.lua
+then
+    echo "line already exists."
+else
+    echo 'local hyper = {"ctrl", "alt", "cmd"}' >> ~/.hammerspoon/init.lua
+fi
+
+if grep -Fxq 'hs.loadSpoon("MiroWindowsManager")' ~/.hammerspoon/init.lua
+then
+    echo "line already exists."
+else
+    echo 'hs.loadSpoon("MiroWindowsManager")' >> ~/.hammerspoon/init.lua
+fi
+
+if grep -Fxq 'hs.window.animationDuration = 0.3' ~/.hammerspoon/init.lua
+then
+    echo "line already exists."
+else
+    echo 'hs.window.animationDuration = 0.3' >> ~/.hammerspoon/init.lua
+fi
+if grep -Fxq 'spoon.MiroWindowsManager:bindHotkeys({ up = {hyper, "up"}, right = {hyper, "right"}, down = {hyper, "down"}, left = {hyper, "left"}, fullscreen = {hyper, "f"}, center = {hyper, "c"}, move = {hyper, "v"}, middle = {hyper, "m"} })' ~/.hammerspoon/init.lua
+then
+    echo "line already exists."
+else
+    echo 'spoon.MiroWindowsManager:bindHotkeys({ up = {hyper, "up"}, right = {hyper, "right"}, down = {hyper, "down"}, left = {hyper, "left"}, fullscreen = {hyper, "f"}, center = {hyper, "c"}, move = {hyper, "v"}, middle = {hyper, "m"} })' >> ~/.hammerspoon/init.lua
+fi
+```
+
 ## How to install
 
  - Extract the zip file, containing `MiroWindowsManager.spoon` in `~/.hammerspoon/Spoons`
