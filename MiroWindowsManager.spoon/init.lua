@@ -566,6 +566,7 @@ obj.hotkeys = {}
 ---   * center: for the center action (e.g. `{hyper, "c"}`)
 ---   * move: for the move action (e.g. `{hyper, "v"}`). The move action is active as soon as the hotkey is pressed. While active the left, right, up or down keys can be used (these are configured by the actions above). 
 ---   * resize: for the resize action (e.g. `{hyper, "d"}`). The resize action is active as soon as the hotkey is pressed. While active the left, right, up or down keys can be used (these are configured by the actions above).
+---   * middle: for the middle action (e.g `{hyper, "m"}`)
 ---
 --- A configuration example:
 --- ``` lua
@@ -578,7 +579,8 @@ obj.hotkeys = {}
 ---   fullscreen  = {hyper, "f"},
 ---   center      = {hyper, "c"},
 ---   move        = {hyper, "v"},
----   resize      = {hyper, "d" }
+---   resize      = {hyper, "d" },
+---   middle      = {hyper, "m"}
 --- })
 --- ```
 ---
@@ -641,6 +643,14 @@ function obj:bindHotkeys(mapping)
       mapping.fullscreen[1],
       mapping.fullscreen[2],
       function() self:fullscreen() end)
+  end
+
+  -- `middle` hotkey
+  if mapping.middle then
+    self.hotkeys[#self.hotkeys + 1] = hs.hotkey.bind(
+      mapping.middle[1], 
+      mapping.middle[2],
+      function() self:middle() end)
   end
 
   -- `center` hotkey
